@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using FluentValidation;
 using FluentValidation.Results;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 
 namespace RepositoryExample.Domain.Helpers
 {
-    public static class ObjectIdParser
+    public static class ObjectIdentifierParser
     {
-        public static ObjectId ValidateAndParse(string id)
+        public static ObjectIdentifier ValidateAndParse(string id)
         {
-            if (!ObjectId.TryParse(id, out var parsedId))
+            if (!ObjectIdentifier.TryParse(id, out var parsedId))
             {
                 var failureList = new List<ValidationFailure>()
                 {

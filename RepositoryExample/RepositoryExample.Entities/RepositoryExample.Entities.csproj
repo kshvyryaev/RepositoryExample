@@ -8,4 +8,9 @@
     <PackageReference Include="MongoDB.Driver" Version="2.7.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RepositoryExample.Base.Domain\RepositoryExample.Base.Domain.csproj" />
+    <ProjectReference Include="..\RepositoryExample.Base.Identifier\RepositoryExample.Base.Identifier.csproj" />
+  </ItemGroup>
+
 </Project>

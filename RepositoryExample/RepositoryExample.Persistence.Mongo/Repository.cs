@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using RepositoryExample.Base.Domain;
-using RepositoryExample.Entities;
 
 namespace RepositoryExample.Persistence.Mongo
 {
     public class Repository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier>
-        where TEntity : BaseEntity
+        where TEntity : class, IEntity<TIdentifier>
     {
-        private readonly IMongoClient _client;
-        private readonly IMongoDatabase _database;
-
         public Repository(IDatabaseConfiguration configuration)
         {
             if (configuration == null)
@@ -20,11 +16,13 @@ namespace RepositoryExample.Persistence.Mongo
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            _client = new MongoClient(configuration.ConnectionString);
-            _database = _client.GetDatabase(configuration.Database);
+            var client = new MongoClient(configuration.ConnectionString);
+            this.Database = client.GetDatabase(configuration.Database);
         }
 
-        public IMongoCollection<TEntity> Collection => _database.GetCollection<TEntity>(typeof(TEntity).Name);
+        protected IMongoDatabase Database { get; }
+
+        protected IMongoCollection<TEntity> Collection => this.Database.GetCollection<TEntity>(typeof(TEntity).Name);
 
         public async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
         {

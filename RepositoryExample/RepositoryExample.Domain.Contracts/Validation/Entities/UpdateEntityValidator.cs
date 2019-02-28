@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 using RepositoryExample.Domain.Commands.Entities;
 using RepositoryExample.Entities;
 using RepositoryExample.Persistence;
@@ -9,13 +9,13 @@ namespace RepositoryExample.Domain.Validation.Entities
 {
     public class UpdateEntityValidator : AbstractValidator<UpdateEntityCommand>, ICommandValidator<UpdateEntityCommand, Entity>
     {
-        public UpdateEntityValidator(IEntitiesRepository<ObjectId> entitiesRepository)
+        public UpdateEntityValidator(IEntitiesRepository<ObjectIdentifier> entitiesRepository)
         {
             this.RuleFor(e => e.Id)
                 .NotEmpty()
                 .Must((command, id) => 
                 {
-                    if (!ObjectId.TryParse(id, out ObjectId entityId))
+                    if (!ObjectIdentifier.TryParse(id, out ObjectIdentifier entityId))
                     {
                         return false;
                     }

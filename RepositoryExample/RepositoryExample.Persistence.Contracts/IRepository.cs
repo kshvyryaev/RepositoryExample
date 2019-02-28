@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using RepositoryExample.Base.Domain;
-using RepositoryExample.Entities;
 
 namespace RepositoryExample.Persistence
 {
     public interface IRepository<TEntity, in TIdentifier>
-        where TEntity : BaseEntity
+        where TEntity : class
     {
         Task<IReadOnlyCollection<TEntity>> GetAllAsync();
 

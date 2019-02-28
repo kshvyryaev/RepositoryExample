@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 using RepositoryExample.Domain.Commands.Entities;
 using RepositoryExample.Entities;
 using RepositoryExample.Persistence;
@@ -9,7 +9,7 @@ namespace RepositoryExample.Domain.Validation.Entities
 {
     public class CreateEntityValidator : AbstractValidator<CreateEntityCommand>, ICommandValidator<CreateEntityCommand, Entity>
     {
-        public CreateEntityValidator(IEntitiesRepository<ObjectId> entitiesRepository)
+        public CreateEntityValidator(IEntitiesRepository<ObjectIdentifier> entitiesRepository)
         {
             this.RuleFor(e => e.Name)
                 .NotEmpty()

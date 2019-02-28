@@ -1,11 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using RepositoryExample.Base.Domain;
+using RepositoryExample.Base.Identifier;
 
 namespace RepositoryExample.Entities
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity : IEntity<ObjectIdentifier>
     {
         [BsonId]
-        public ObjectId Id { get; set; }
+        public ObjectIdentifier Id { get; set; }
     }
 }

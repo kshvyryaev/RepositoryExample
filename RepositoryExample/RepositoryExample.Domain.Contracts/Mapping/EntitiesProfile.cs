@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 using RepositoryExample.Domain.Commands.Entities;
+using RepositoryExample.Domain.Helpers;
 using RepositoryExample.Domain.Responses;
 using RepositoryExample.Entities;
 
@@ -13,10 +14,10 @@ namespace RepositoryExample.Domain.Mapping
             this.CreateMap<Entity, EntityResponse>();
 
             this.CreateMap<CreateEntityCommand, Entity>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(command => ObjectId.GenerateNewId()));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(command => ObjectIdentifier.GenerateNewId()));
 
             this.CreateMap<UpdateEntityCommand, Entity>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(command => ObjectId.Parse(command.Id)));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(command => ObjectIdentifierParser.ValidateAndParse(command.Id)));
         }
     }
 }

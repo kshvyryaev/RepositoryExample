@@ -2,7 +2,7 @@
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 using RepositoryExample.Domain.Commands.Entities;
 using RepositoryExample.Domain.Services;
 using RepositoryExample.Domain.Validation;
@@ -31,16 +31,15 @@ namespace RepositoryExample.Ioc
                 throw new ArgumentNullException(nameof(mapper));
             }
 
-            services.AddTransient<IDatabaseConfiguration>(c => new Persistence.Mongo.DatabaseConfiguration(configuration));
-            services.AddTransient<IRepository<Entity, ObjectId>, Persistence.Mongo.Repository<Entity, ObjectId>>();
-            services.AddTransient<IEntitiesRepository<ObjectId>, Persistence.Mongo.EntitiesRepository>();
+            services.AddSingleton<IDatabaseConfiguration>(c => new Persistence.Mongo.DatabaseConfiguration(configuration));
+            services.AddSingleton<IEntitiesRepository<ObjectIdentifier>, Persistence.Mongo.EntitiesRepository>();
 
             services.AddTransient<ICommandValidator<CreateEntityCommand, Entity>, CreateEntityValidator>();
             services.AddTransient<ICommandValidator<UpdateEntityCommand, Entity>, UpdateEntityValidator>();
 
-            services.AddTransient<IMapper>(c => mapper);
+            services.AddSingleton<IMapper>(c => mapper);
 
-            services.AddTransient<IEntitiesService, EntitiesService>();
+            services.AddSingleton<IEntitiesService, EntitiesService>();
         }
     }
 }

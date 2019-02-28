@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson.Serialization;
 
 namespace RepositoryExample.Persistence.Mongo
 {
@@ -14,6 +15,8 @@ namespace RepositoryExample.Persistence.Mongo
 
             this.ConnectionString = configuration["Mongo:ConnectionString"];
             this.Database = configuration["Mongo:Database"];
+
+            BsonSerializer.RegisterSerializationProvider(new ObjectIdentifierSerializer());
         }
 
         public string ConnectionString { get; }

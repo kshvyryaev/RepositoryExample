@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using MongoDB.Bson;
+using RepositoryExample.Base.Identifier;
 using RepositoryExample.Domain.Commands.Entities;
 using RepositoryExample.Domain.Helpers;
 using RepositoryExample.Domain.Responses;
@@ -14,13 +14,13 @@ namespace RepositoryExample.Domain.Services
 {
     public class EntitiesService : IEntitiesService
     {
-        private readonly IEntitiesRepository<ObjectId> _entitiesRepository;
+        private readonly IEntitiesRepository<ObjectIdentifier> _entitiesRepository;
         private readonly ICommandValidator<CreateEntityCommand, Entity> _createCommandValidator;
         private readonly ICommandValidator<UpdateEntityCommand, Entity> _updateCommandValidator;
         private readonly IMapper _mapper;
 
         public EntitiesService(
-            IEntitiesRepository<ObjectId> entitiesRepository,
+            IEntitiesRepository<ObjectIdentifier> entitiesRepository,
             ICommandValidator<CreateEntityCommand, Entity> createCommandValidator,
             ICommandValidator<UpdateEntityCommand, Entity> updateCommandValidator,
             IMapper mapper)
@@ -39,7 +39,7 @@ namespace RepositoryExample.Domain.Services
 
         public async Task<EntityResponse> GetByIdAsync(string id)
         {
-            var entityId = ObjectIdParser.ValidateAndParse(id);
+            var entityId = ObjectIdentifierParser.ValidateAndParse(id);
             var entity = await _entitiesRepository.GetAsync(entityId);
 
             if (entity == null)
@@ -62,7 +62,7 @@ namespace RepositoryExample.Domain.Services
 
         public async Task<EntityResponse> UpdateAsync(UpdateEntityCommand updateCommand)
         {
-            var entityId = ObjectIdParser.ValidateAndParse(updateCommand.Id);
+            var entityId = ObjectIdentifierParser.ValidateAndParse(updateCommand.Id);
             var existingEntity = await _entitiesRepository.GetAsync(entityId);
 
             if (existingEntity == null)
@@ -80,7 +80,7 @@ namespace RepositoryExample.Domain.Services
 
         public async Task DeleteAsync(string id)
         {
-            var entityId = ObjectIdParser.ValidateAndParse(id);
+            var entityId = ObjectIdentifierParser.ValidateAndParse(id);
             await _entitiesRepository.DeleteAsync(entityId);
         }
     }
