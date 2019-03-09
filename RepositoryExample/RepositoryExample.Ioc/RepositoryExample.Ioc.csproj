@@ -10,8 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RepositoryExample.Domain.Contracts\RepositoryExample.Domain.csproj" />
-    <ProjectReference Include="..\RepositoryExample.Persistence.Contracts\RepositoryExample.Persistence.csproj" />
     <ProjectReference Include="..\RepositoryExample.Persistence.Mongo\RepositoryExample.Persistence.Mongo.csproj" />
   </ItemGroup>
 

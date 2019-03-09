@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RepositoryExample.Entities\RepositoryExample.Entities.csproj" />
-    <ProjectReference Include="..\RepositoryExample.Persistence.Contracts\RepositoryExample.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
