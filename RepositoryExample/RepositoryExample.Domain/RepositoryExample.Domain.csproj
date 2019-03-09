@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RepositoryExample.Entities\RepositoryExample.Entities.csproj" />
+    <ProjectReference Include="..\RepositoryExample.Persistence\RepositoryExample.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
